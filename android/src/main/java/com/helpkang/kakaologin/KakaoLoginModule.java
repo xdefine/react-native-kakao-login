@@ -36,21 +36,18 @@ public class KakaoLoginModule extends ReactContextBaseJavaModule implements Acti
         ReactApplicationContext reactContext = getReactApplicationContext();
         reactContext.addActivityEventListener(this);
 
-//        Log.d("current context", reactContext.toString());
-//
-//        Log.d("current Activity", reactContext.getCurrentActivity().toString());
-
         this.rkl = new ReactKakaoLogin(reactContext);
     }
 
-
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
-            return;
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+        try {
+            if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
+                return;
+            }
         }
+        catch (Exception e) {}
     }
-
 
     @Override
     public void onNewIntent(Intent intent) {
